@@ -18,7 +18,7 @@ export default function Editcontact(props) {
   return (
     <>
       <h1 className='m-8 text-2xl'> Edit Page</h1>
-      <form className='shadow-[2px_2px_15px_teal]  w-1/2 h-1/2 m-auto' >
+      <form className='shadow-[2px_2px_15px_teal]  w-1/2 h-80 m-auto' >
         <span>First Name </span>
         <input
           className='border-2 border-solid my-12 ml-6'

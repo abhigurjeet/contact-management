@@ -6,7 +6,7 @@ import { Routes, Route } from "react-router-dom";
 export default function App() {
   return (
     <div className="App ">
-      <h1 className='border-4 border-solid border-[#94A3B8] h-20 text-2xl text-center pt-4'>Contact Management System</h1>
+      <h1 className='border-4 border-solid border-[#94A3B8] h-20 text-2xl text-center pt-4 fixed w-full'>Contact Management System</h1>
       <div className="main flex">
         <Navbar />
         <Routes>

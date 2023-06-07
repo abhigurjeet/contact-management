@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Line } from "react-chartjs-2";
+import Chart from "chart.js/auto";
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet'
+import icon from "leaflet/dist/images/marker-icon.png";
+
+
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 export default function Mapchart() {
+  let DefaultIcon=L.icon({
+    iconUrl:icon,
+  })
+  L.Marker.prototype.options.icon=DefaultIcon;
   const [worldData, setWorldData] = useState({});
   const [countryData, setCountryData] = useState([]);
-  const [graphData, setGraphData] = useState({});
+  const [graphData, setGraphData] = useState(null);
 
   useEffect(() => {
     fetchWorldData();
@@ -28,7 +38,6 @@ export default function Mapchart() {
         "https://disease.sh/v3/covid-19/countries"
       );
       setCountryData(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error("Error fetching country data:", error);
     }
@@ -46,7 +55,6 @@ export default function Mapchart() {
   };
 
   const buildGraphData = () => {
-    console.log(graphData);
     if (
       graphData &&
       graphData.cases &&
@@ -59,9 +67,6 @@ export default function Mapchart() {
           count
         })
       );
-
-      console.log("Cases Data:", casesData);
-
       return {
         labels: casesData.map((data) => data.date.toDateString()),
         datasets: [
@@ -80,40 +85,39 @@ export default function Mapchart() {
   };
 
   return (
-    <div className="map-chart w-full">
-      <h1>COVID-19 Dashboard</h1>
+    <div className="map-chart w-full mt-20 ml-32">
+      <h1 className="mt-4 text-2xl">COVID-19 Dashboard</h1>
       <div className="chart-container">
         <h2>Worldwide Cases</h2>
         <p>Total Cases: {worldData.cases}</p>
         <p>Total Deaths: {worldData.deaths}</p>
         <p>Total Recovered: {worldData.recovered}</p>
-        {graphData === {} ? (
-          <Line data={buildGraphData()} />
+        {graphData ? (
+          <Line style={{ height: "500px",width:'80%',margin:'auto' }} data={buildGraphData()} />
         ) : (
           <p>Loading graph data...</p>
         )}
       </div>
       <div className="map-container">
         <h2>Country Cases</h2>
-        <MapContainer
-          center={[0, 0]}
-          zoom={2}
-          style={{ height: "300px", width: "100%" }}
-        >
+        <MapContainer className='bg-white text-black' center={[0, 0]} style={{ height: "500px",width:'75%',margin:'auto' }} zoom={3} scrollWheelZoom={true}>
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
           {countryData.map((country) => (
-            <Marker
+            <Marker 
               key={country.country}
               position={[country.countryInfo.lat, country.countryInfo.long]}
             >
               <Popup>
-                <strong>{country.country}</strong>
-                <br />
+                <h5 className='bg-white text-black m-0 p-0'>{country.country}</h5>
+                <p className='bg-white text-black m-0 p-0'>
                 Active Cases: {country.active}
-                <br />
+                </p>
+                <p className='bg-white text-black m-0 p-0'>
                 Recovered Cases: {country.recovered}
-                <br />
+                </p>
+                <p className='bg-white text-black m-0 p-0'>
                 Deaths: {country.deaths}
+                </p>
               </Popup>
             </Marker>
           ))}

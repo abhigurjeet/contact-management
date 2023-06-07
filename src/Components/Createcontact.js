@@ -37,7 +37,7 @@ export default function Createcontact() {
     setEditCheck(false);
   }
   return (
-    <div className="text-center w-full">
+    <div className="text-center w-full mt-20 ml-32">
       {!editContact && (
         <button className='shadow-[2px_2px_15px_pink] border-2 border-solid w-60 m-12 p-4 hover:bg-black' onClick={() => setCreateCheck(true)}>Create New Contact</button>
       )}

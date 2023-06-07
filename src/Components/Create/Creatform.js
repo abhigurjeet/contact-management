@@ -19,9 +19,9 @@ export default function Createform(props) {
   }
 
   return (
-    <form className='shadow-[2px_2px_15px_teal]  w-1/2 h-1/2 m-auto '>
+    <form className='shadow-[2px_2px_15px_teal]  w-1/2 h-80 m-auto '>
       <span>First Name </span>
-      <input className='border-2 border-solid my-5 ml-6' type="text" name="fname" onChange={onChangeName} value={fname}  />
+      <input className='border-2 border-solid my-8  ml-6' type="text" name="fname" onChange={onChangeName} value={fname}  />
       <br />
       <span>Second Name </span>
       <input className='border-2 border-solid m-5' type="text" name="sname" onChange={onChangeName} value={lname}  />
