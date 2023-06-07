@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*{
+  background-color: #0F172A;
+  color:white;
+}
+.map-chart {
+  text-align: center;
+  margin: 2rem;
+}
+
+.chart-container {
+  margin-bottom: 2rem;
+}
+
+.map-container {
+  height: 500px;
+}
